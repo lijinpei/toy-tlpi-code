@@ -1,0 +1,8 @@
+(library (fileio)
+         (export c-open c-read c-write c-lseek c-close)
+         (import (chezscheme))
+         (define c-open (begin (load-shared-object "libc.so.6") (foreign-procedure "open" (string int int) int)))
+         (define c-read (foreign-procedure "read" (int void* size_t) ssize_t))
+         (define c-write (foreign-procedure "write" (int string size_t) ssize_t))
+         (define c-lseek (foreign-procedure "lseek" (int long int) long))
+         (define c-close (foreign-procedure "close" (int) int)))
